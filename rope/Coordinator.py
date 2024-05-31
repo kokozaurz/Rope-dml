@@ -2,6 +2,7 @@
 
 import time
 import torch
+import torch_directml
 from torchvision import transforms
 
 import rope.GUI as GUI
@@ -141,7 +142,7 @@ def coordinator():
     
 def load_clip_model():
     # https://github.com/timojl/clipseg
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch_directml.device() if torch_directml.is_available() else torch.device("cpu")
     clip_session = CLIPDensePredT(version='ViT-B/16', reduce_dim=64, complex_trans_conv=True)
     # clip_session = CLIPDensePredTMasked(version='ViT-B/16', reduce_dim=64)
     clip_session.eval();
